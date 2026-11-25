@@ -3,8 +3,8 @@
 Draw the entry image for the make.fun "news-image-20261124" competition.
 
 The picture is a one-page world-news brief for Tuesday, 24 November 2026: a
-masthead carrying the date, eight cards covering seven regions, and a footer
-strip of three shorter world headlines.
+masthead carrying the date, ten cards covering ten regions, and a footer
+strip of five shorter world headlines.
 
 Every card carries a small flat flag drawn from rectangles and polygons, not
 from an emoji glyph, so no character can fall back to an empty box on a
@@ -39,13 +39,13 @@ SANS = os.path.join(FONT_DIR, "LiberationSans-Regular.ttf")
 SANS_BOLD = os.path.join(FONT_DIR, "LiberationSans-Bold.ttf")
 SERIF_BOLD = os.path.join(FONT_DIR, "LiberationSerif-Bold.ttf")
 
-f_date = ImageFont.truetype(SERIF_BOLD, 50)
-f_kicker = ImageFont.truetype(SANS_BOLD, 19)
-f_region = ImageFont.truetype(SANS_BOLD, 16)
-f_head = ImageFont.truetype(SANS_BOLD, 31)
-f_sub = ImageFont.truetype(SANS, 17)
-f_foot = ImageFont.truetype(SANS_BOLD, 20)
-f_small = ImageFont.truetype(SANS, 13)
+f_date = ImageFont.truetype(SERIF_BOLD, 46)
+f_kicker = ImageFont.truetype(SANS_BOLD, 18)
+f_region = ImageFont.truetype(SANS_BOLD, 15)
+f_head = ImageFont.truetype(SANS_BOLD, 26)
+f_sub = ImageFont.truetype(SANS, 15)
+f_foot = ImageFont.truetype(SANS_BOLD, 17)
+f_small = ImageFont.truetype(SANS, 12)
 
 img = Image.new("RGB", (W, H), PAPER)
 d = ImageDraw.Draw(img)
@@ -68,7 +68,7 @@ def wrap(text, font, max_w):
     return lines
 
 
-def fit(text, font_path, max_w, start_size, floor_size=12):
+def fit(text, font_path, max_w, start_size, floor_size=11):
     """Largest font size at which the text still fits on one line."""
     for size in range(start_size, floor_size - 1, -1):
         font = ImageFont.truetype(font_path, size)
@@ -87,17 +87,17 @@ def star(cx, cy, r, fill):
     d.polygon(pts, fill=fill)
 
 
-def flag(kind, x, y, w=44, h=29):
+def flag(kind, x, y, w=40, h=26):
     """Small flat flag drawn from shapes, never from an emoji glyph."""
     if kind == "iran":
         for i, col in enumerate(("#239F40", "#ffffff", "#DA0000")):
             d.rectangle([x, y + i * h / 3, x + w, y + (i + 1) * h / 3], fill=col)
-        d.ellipse([x + w / 2 - 4, y + h / 2 - 4, x + w / 2 + 4, y + h / 2 + 4],
+        d.ellipse([x + w / 2 - 3, y + h / 2 - 3, x + w / 2 + 3, y + h / 2 + 3],
                   outline="#DA0000", width=1)
     elif kind == "saudi":
         d.rectangle([x, y, x + w, y + h], fill="#165D31")
         d.rectangle([x + 3, y + h / 2 - 1, x + w - 3, y + h / 2 + 1], fill="#ffffff")
-        d.line([x + w - 8, y + h / 2, x + w - 4, y + h / 2 - 3], fill="#ffffff", width=2)
+        d.line([x + w - 7, y + h / 2, x + w - 4, y + h / 2 - 3], fill="#ffffff", width=2)
     elif kind == "ukraine":
         d.rectangle([x, y, x + w, y + h / 2], fill="#0057B7")
         d.rectangle([x, y + h / 2, x + w, y + h], fill="#FFD700")
@@ -118,6 +118,16 @@ def flag(kind, x, y, w=44, h=29):
             d.rectangle([x, y + i * h / 7, x + w, y + (i + 1) * h / 7],
                         fill="#B22234" if i % 2 == 0 else "#ffffff")
         d.rectangle([x, y, x + w * 0.42, y + h * 0.57], fill="#3C3B6E")
+    elif kind == "bangladesh":
+        d.rectangle([x, y, x + w, y + h], fill="#006A4E")
+        d.ellipse([x + w * 0.42, y + h * 0.28, x + w * 0.58, y + h * 0.72],
+                  fill="#F42A41")
+    elif kind == "congo":
+        # Sky blue with a yellow-bordered red diagonal and a yellow star.
+        d.rectangle([x, y, x + w, y + h], fill="#007FFF")
+        d.line([x - 2, y + h + 2, x + w + 2, y - 2], fill="#F7D618", width=7)
+        d.line([x - 2, y + h + 2, x + w + 2, y - 2], fill="#CE102D", width=4)
+        star(x + w * 0.28, y + h * 0.66, h * 0.19, "#F7D618")
     d.rectangle([x, y, x + w, y + h], outline=RULE, width=1)
 
 
@@ -130,21 +140,21 @@ def globe(cx, cy, r, color):
 
 
 # ---------------------------------------------------------------- masthead
-HEADER_H = 132
+HEADER_H = 118
 d.rectangle([0, 0, W, HEADER_H], fill=NAVY)
-globe(66, 56, 30, GOLD)
-d.text((112, 20), "THE WORLD ON ONE TUESDAY", font=f_kicker, fill=GOLD)
-d.text((112, 44), "24 NOVEMBER 2026", font=f_date, fill="#ffffff")
-d.text((112, 100), "A one-page brief of the day's world news", font=f_small, fill="#9fb0c4")
-d.text((W - 34, 26), "ONE DAY", font=f_kicker, fill="#ffffff", anchor="ra")
-d.text((W - 34, 52), "11 STORIES", font=f_kicker, fill="#9fb0c4", anchor="ra")
-d.text((W - 34, 78), "7 REGIONS", font=f_kicker, fill="#9fb0c4", anchor="ra")
+globe(58, 56, 27, GOLD)
+d.text((98, 16), "THE WORLD ON ONE TUESDAY", font=f_kicker, fill=GOLD)
+d.text((98, 40), "24 NOVEMBER 2026", font=f_date, fill="#ffffff")
+d.text((98, 92), "A one-page brief of the day's world news", font=f_small, fill="#9fb0c4")
+d.text((W - 30, 22), "ONE DAY", font=f_kicker, fill="#ffffff", anchor="ra")
+d.text((W - 30, 47), "15 STORIES", font=f_kicker, fill="#9fb0c4", anchor="ra")
+d.text((W - 30, 72), "10 REGIONS", font=f_kicker, fill="#9fb0c4", anchor="ra")
 
 # ------------------------------------------------------------------- cards
 CARDS = [
     ("MIDDLE EAST", "IRAN: NO TALKS UNTIL 7 CONDITIONS",
      "Tehran orders Hormuz shut 'further day by day'; Qatar's prime minister "
-     "presses Vance and Rubio in Washington", "iran", "#B3202C"),
+     "presses Vance and Rubio", "iran", "#B3202C"),
     ("GULF", "HOUTHI STRIKE HITS RIYADH",
      "11 hurt at the Public Investment Fund tower; Saudi strike on a Yemen "
      "convoy kills 26", "saudi", "#0E7C3A"),
@@ -163,17 +173,23 @@ CARDS = [
     ("LATIN AMERICA", "COLOMBIA CAR BOMB",
      "25 injured outside Meta government offices in Villavicencio; drones "
      "hit police HQ in Cucuta", "colombia", "#C9A227"),
-    ("NORTH AMERICA", "NVIDIA CALLS BACK HUANG",
-     "Trump presses Nvidia's board; US stocks rally on the CEO's return, then "
-     "trim gains", "usa", "#1A4FA0"),
+    ("NORTH AMERICA", "DEMOCRATS WIN THE HOUSE",
+     "At least 259 seats, the biggest majority since 1990, under a Republican "
+     "president", "usa", "#1A4FA0"),
+    ("AFRICA", "DR CONGO HUNTS MISSING JET",
+     "Rebels claim they shot down a warplane near Minembwe; the army's Cessna "
+     "is still missing", "congo", "#1E6FB8"),
+    ("SOUTH ASIA", "HASINA SAYS SHE IS COMING HOME",
+     "The ousted premier plans a Dec 16 return from exile; Dhaka says she "
+     "will come back in handcuffs", "bangladesh", "#0E7C3A"),
 ]
 
-MARGIN = 22
-GAP = 12
-TOP = HEADER_H + 14
-FOOTER_TOP = 936
-BOTTOM = FOOTER_TOP - 12
-COLS, ROWS = 2, 4
+MARGIN = 20
+GAP = 10
+TOP = HEADER_H + 12
+FOOTER_TOP = 906
+BOTTOM = FOOTER_TOP - 10
+COLS, ROWS = 2, 5
 card_w = (W - 2 * MARGIN - GAP) // COLS
 card_h = (BOTTOM - TOP - (ROWS - 1) * GAP) // ROWS
 
@@ -184,38 +200,49 @@ for idx, (region, headline, sub, flag_kind, accent) in enumerate(CARDS):
     y = TOP + row * (card_h + GAP)
 
     d.rectangle([x, y, x + card_w, y + card_h], fill="#ffffff")
-    d.rectangle([x, y, x + 6, y + card_h], fill=accent)
+    d.rectangle([x, y, x + 5, y + card_h], fill=accent)
     d.rectangle([x, y, x + card_w, y + card_h], outline=RULE, width=1)
 
-    pad = 16
-    tx = x + pad + 6
-    tw = card_w - 2 * pad - 6
+    pad = 13
+    tx = x + pad + 5
+    tw = card_w - 2 * pad - 5
 
-    flag(flag_kind, x + pad, y + 14)
-    d.text((x + pad + 54, y + 20), region, font=f_region, fill=accent)
+    flag(flag_kind, x + pad, y + 11)
+    d.text((x + pad + 48, y + 16), region, font=f_region, fill=accent)
 
-    hy = y + 54
-    for line in wrap(headline, f_head, tw)[:2]:
+    # The headline always occupies two lines, so the supporting lines of every
+    # card start at the same height down the page.
+    head_lines = wrap(headline, f_head, tw)[:2]
+    hy = y + 44
+    for line in head_lines:
         d.text((tx, hy), line, font=f_head, fill=INK)
-        hy += 33
+        hy += 28
+    hy += 28 * (2 - len(head_lines))
 
-    for line in wrap(sub, f_sub, tw)[:3]:
-        d.text((tx, hy + 3), line, font=f_sub, fill=INK_SOFT)
-        hy += 21
+    for line in wrap(sub, f_sub, tw)[:2]:
+        d.text((tx, hy + 1), line, font=f_sub, fill=INK_SOFT)
+        hy += 18
 
 # ------------------------------------------------------------------ footer
 d.rectangle([0, FOOTER_TOP, W, H], fill=NAVY)
-d.text((MARGIN, FOOTER_TOP + 10), "ALSO ON 24 NOVEMBER", font=f_region, fill=GOLD)
+d.text((MARGIN, FOOTER_TOP + 8), "ALSO ON 24 NOVEMBER", font=f_region, fill=GOLD)
 
-also = ("COP31 climate talks collapse  ·  landmine toll at a 5-year high  ·  "
-        "rights groups urge sanctions after the Myanmar genocide ruling")
-d.text((MARGIN, FOOTER_TOP + 32), also,
-       font=fit(also, SANS_BOLD, W - 2 * MARGIN, 20, 14), fill="#ffffff")
+FOOTER_LINES = [
+    "Nvidia's Jensen Huang returns as CEO and US stocks rally  ·  Israeli strike "
+    "kills Hamas security chief in Gaza",
+    "COP31 climate talks collapse without a deal  ·  landmine toll at a 5-year "
+    "high  ·  rights groups urge sanctions after the Myanmar genocide ruling",
+]
+fy = FOOTER_TOP + 28
+for line in FOOTER_LINES:
+    d.text((MARGIN, fy), line, font=fit(line, SANS_BOLD, W - 2 * MARGIN, 17, 12),
+           fill="#ffffff")
+    fy += 24
 
 credit = ("Compiled from Reuters, AP, BBC, FT and UN reporting  ·  "
           "make.fun news-image-20261124")
-d.text((MARGIN, FOOTER_TOP + 62), credit,
-       font=fit(credit, SANS, W - 2 * MARGIN, 13, 10), fill="#9fb0c4")
+d.text((MARGIN, fy + 4), credit,
+       font=fit(credit, SANS, W - 2 * MARGIN, 12, 10), fill="#9fb0c4")
 
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "entry.png")
 img.save(out, "PNG", optimize=True)

@@ -6,8 +6,8 @@
 
 One image that sums up the world news of **Tuesday, 24 November 2026**.
 
-The entry is a front page dated in the masthead, with eight cards over seven
-regions and a footer of three shorter world headlines:
+The entry is a front page dated in the masthead, with ten cards over ten
+regions and a footer of five shorter world headlines:
 
 - **Middle East** — Iran says no talks with the US until seven conditions are
   met and orders the Strait of Hormuz shut "further day by day"; Qatar's prime
@@ -24,9 +24,16 @@ regions and a footer of three shorter world headlines:
   Hanoi, killing six and injuring more than a dozen.
 - **Latin America** — a car bomb outside the Meta government offices in
   Villavicencio injures 25; drones hit police headquarters in Cúcuta.
-- **North America** — Trump presses Nvidia's board and Jensen Huang returns
-  as CEO; US stocks rally, then trim gains.
-- **Also on 24 November** — the COP31 climate talks collapse, global landmine
+- **North America** — House Democrats reach at least 259 seats, their biggest
+  majority since 1990, under a Republican president.
+- **Africa** — DR Congo searches for a missing army Cessna while FRN rebels
+  claim they shot down a warplane near Minembwe.
+- **South Asia** — ousted Bangladeshi premier Sheikh Hasina says she will
+  return from exile on 16 December; Dhaka says she will come back in
+  handcuffs.
+- **Also on 24 November** — Nvidia's Jensen Huang returns as CEO and US
+  stocks rally, an Israeli strike kills Hamas security chief Naeem Abu Nahel
+  in Gaza, the COP31 climate talks collapse without a deal, global landmine
   casualties reach a five-year high, and rights groups urge sanctions after
   the Myanmar genocide ruling.
 
@@ -35,7 +42,7 @@ glyph, so no character can fall back to an empty box.
 
 ## How it is built
 
-`entry.png` is the finished picture, 1024x1024 and about 125 KB.
+`entry.png` is the finished picture, 1024x1024 and about 126 KB.
 `render_entry.py` draws it with Pillow from the reporting published that day
 (Reuters, AP, BBC, FT, UN News); it is kept here so the image can be
 redrawn, and it is not needed to run the entry.
